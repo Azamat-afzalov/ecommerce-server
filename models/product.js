@@ -31,8 +31,9 @@ const productSchema = new Schema({
     amount : {
         type : Number
     },
+    size : String,
     description: String,
-    details : String
+    details : String,
     status : String
 }, { timestamps : true });
 

@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Order require('./order');
+const Cart = require('./cart');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -25,7 +27,17 @@ const userSchema = new Schema({
         required : true 
     },
     address : String,
-    region : Number
+    region : Number,
+    orders : [
+        {
+            orderId : Schema.Types.ObjectID,
+            ref : 'order'
+        }
+    ],
+    cart : {
+        type :Schema.Types.ObjectID,
+        ref : 'cart'
+    }
 }, {timestamps : true});
 
 module.exports = mongoose.model('user', userSchema);
