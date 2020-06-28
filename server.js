@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('./config/server.js');
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use('/api',api);
+app.use('/uploads', express.static(path.join(__dirname , '/uploads')));
 
 app.use((error, req, res, next) => {
     console.log(error);

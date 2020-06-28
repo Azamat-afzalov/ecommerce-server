@@ -9,6 +9,7 @@ const {
     getSubcategory,
     deleteSubcategory
 } = require("../controllers/category");
+
 const router = express.Router();
 
 // Subcategory routes
