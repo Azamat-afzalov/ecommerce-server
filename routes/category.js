@@ -6,7 +6,8 @@ const {
     getCategory,
     deleteCategory,
     getAllSubcategories,
-    getSubcategory
+    getSubcategory,
+    deleteSubcategory
 } = require("../controllers/category");
 const router = express.Router();
 
@@ -14,6 +15,7 @@ const router = express.Router();
 router.post("/subcategory", addSubcategory);
 router.get( "/subcategory", getAllSubcategories);
 router.get( "/subcategory/:subcategoryId", getSubcategory);
+router.delete("/subcategory/:subcategoryId", deleteSubcategory);
 
 // Category routes
 router.get("/", getAllCategories);

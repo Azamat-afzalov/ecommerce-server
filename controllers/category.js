@@ -141,3 +141,31 @@ exports.getSubcategory = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.deleteSubcategory = async (req, res, next) => {
+    const { subcategoryId } = req.params;
+    try {
+        const subcategory = await Subcategory.findOne({_id : subcategoryId});
+        const { categoryId } = subcategory;
+        const category = await Category.findById(categoryId);
+
+        if(!subcategory) {
+            const error = new Error('Subcategory does not exists');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        const subcategories = category
+            .subcategories
+            .filter(sub => sub.subcategoryId.toString() !== subcategoryId.toString());
+        category.subcategories = subcategories;
+        await category.save();
+        await Subcategory.findByIdAndRemove(subcategoryId);
+        return res.status(200).json({
+            success : true,
+            message : `removed ${subcategory.title} from subcategories`
+        })
+    } catch (error) {
+        next(error);
+    }
+}
