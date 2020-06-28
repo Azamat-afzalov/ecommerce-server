@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('./config/server.js');
 const api = require('./routes/api');
- 
+
 
 const app = express();
 const PORT =  8080;
@@ -13,9 +13,18 @@ app.use(cors());
 
 app.use('/api',api);
 
-mongoose.connect(`${config.mongo_uri}`, { 
+app.use((error, req, res, next) => {
+    console.log(error);
+    const status = error.statusCode || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({ success : false, message: message, data: data})
+});
+
+mongoose.connect(`${config.MONGO_URI}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify : false
 }).then(() => {
     return app.listen(PORT)
 })

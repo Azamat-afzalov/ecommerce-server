@@ -7,10 +7,11 @@ const categorySchema = new Schema({
         type :  String,
         required : true
     },
-    subcategories : [
-        subctegoryId : {
-            type : Schema.Types.ObjectID,
-            ref : 'subcategory'
+    subcategories : [{
+            subcategoryId : {
+                type : Schema.Types.ObjectID,
+                ref : 'subcategory'
+            }
         }
     ]
 });
